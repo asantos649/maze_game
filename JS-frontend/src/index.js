@@ -1,4 +1,20 @@
 document.addEventListener("DOMContentLoaded", function(){
+
+    const scoreBoard = document.querySelector('.score-board')
+    let score = parseInt(scoreBoard.innerText)
+    const goButton = document.querySelector('.go')
+    let timerEvent = null
+
+    goButton.addEventListener('click', () =>{
+        timerEvent = setInterval(subtractFromCounter, 0050);
+     })
+     function subtractFromCounter(){
+       score --;
+       scoreBoard.innerText = score;
+       if (score === 0)
+         clearInterval(timerEvent)
+     }
+
     createGrid();
     renderBot(currentPosition);
     
@@ -17,10 +33,10 @@ document.addEventListener("DOMContentLoaded", function(){
           move("right")
         }
   
-        console.log(e.code);
+        // console.log(e.code);
     }
   
-    document.querySelector("#move-button").addEventListener("click", moveRobot)
+    // document.querySelector("#move-button").addEventListener("click", moveRobot)
     
     function moveRobot(){
       setInterval(function(){
@@ -30,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function(){
       }, 500)  
     } 
       
-  
+
     // document.querySelector("#move-button").addEventListener("click", moveRobot())
     
     // function moveRobot(){ 

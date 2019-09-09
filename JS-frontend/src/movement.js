@@ -41,7 +41,7 @@ function renderBot(targetPosition){
     return parseInt(tile.dataset.x) === targetPosition.x && parseInt(tile.dataset.y) === targetPosition.y
   })
 
-  console.dir(newTile)
+  // console.dir(newTile)
 
   if (!newTile || newTile.id === "O"){
     return false
