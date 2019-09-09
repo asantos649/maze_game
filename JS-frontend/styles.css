@@ -22,7 +22,10 @@ body {
     background-repeat: no-repeat;
     background-size: 4vh 4vh;
     background-position: center;
-    
+  }
+  .scoreboard {
+    background-color: red;
+    align-content: left;
   }
   
   #O {
