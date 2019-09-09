@@ -1,0 +1,40 @@
+body {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  
+  #board {
+    display: grid;
+    grid-template-columns: repeat(19, 4.5vh);
+    margin: 1%;
+  }
+  
+  .tile {
+    /* border-style: solid; */
+    /* border-width: 1px; */
+    height: 4.5vh;
+    width: 4.5vh;
+  }
+  
+  #robot {
+    background-image: url("https://art.pixilart.com/66da8df531dd67b.gif");
+    background-color:rgb(224,224,224);
+    background-repeat: no-repeat;
+    background-size: 4vh 4vh;
+    background-position: center;
+    
+  }
+  
+  #O {
+    background-image: url("https://www.nerdtests.com/mq/testimages/259251_5423e58637983840a813.jpg");
+    /* background-repeat: no-repeat;
+    background-size: 5vh 5vh;
+    background-position: center; */
+  }
+  
+  #I{
+    background-color:rgb(224,224,224);
+  }
+  #W {
+    background-color:yellow;
+  }
