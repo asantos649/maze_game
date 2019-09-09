@@ -117,8 +117,11 @@ document.addEventListener("DOMContentLoaded", function(){
             setTimeout(function(){alert((`YOU'RE SCORE IS: ${score}`), 10000)})
             clearInterval(timerEvent)
             }
+            if (newTile.id === "T"){
+              score += 20;
+            }
 
-        newTile.id = "robot"
+        newTile.id = "kirby"
         prevTile = newTile
 
         return true
@@ -149,8 +152,19 @@ document.addEventListener("DOMContentLoaded", function(){
         currentPosition = { x, y }
     }
     }
-
 });
   
   
 /////////////
+
+// instead of alert
+
+// document.addEventListener("click",(event) => {
+//   event.preventDefault()
+//   const div = document.createElement("div")
+//   div.innerHTML = '<iframe title="advertisement" height="250px" width="425px" src="https://www.youtube.com/embed/a8XC4H84rMU?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
+// div.style.position = "absolute"
+// div.style.top = `${event.clientY}px`
+// div.style.left = `${event.clientX}px`
+// document.body.append(div)
+// })
