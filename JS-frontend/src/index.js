@@ -6,19 +6,21 @@ document.addEventListener("DOMContentLoaded", function(){
     let prevTile;
     NodeList.prototype.find = Array.prototype.find
     const scoreBoard = document.querySelector('.scoreboard')
-    let score = parseInt(scoreBoard.innerText)
-    const goButton = document.querySelector('.go')
+    let score = 10;
+    // const goButton = document.querySelector('.go')
     let timerEvent = null
 
     //WHERE YOU START THE TIME
-    goButton.addEventListener('click', () =>{
-        timerEvent = setInterval(subtractFromCounter, 0500);
-     })
+    // goButton.addEventListener('click', () =>{
+    //     timerEvent = setInterval(subtractFromCounter, 0500);
+    //  })
+    scoreBoard.innerText = score
      function subtractFromCounter(){
        score --;
        scoreBoard.innerText = score;
-       if (score === 0)
+       if (score === 0){
          clearInterval(timerEvent)
+         alert("TIMES OUT!")}
      }
 
     createGrid();
@@ -26,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function(){
     
     document.addEventListener("keydown", logKey);
       function logKey(e) {
+        if (!timerEvent)
+          timerEvent = setInterval(subtractFromCounter, 0500)
         if (e.code === 'ArrowLeft'){
           move("left")
         }
@@ -52,20 +56,6 @@ document.addEventListener("DOMContentLoaded", function(){
       }, 500)  
     } 
       
-
-    // document.querySelector("#move-button").addEventListener("click", moveRobot())
-    
-    // function moveRobot(){ 
-    //   setInterval(function(){
-    //     let direction = document.querySelectorAll("li")[0];
-  
-    //     if (direction === null){
-    //       alert("hello")
-    //     }
-    //     move(direction.innerText);
-    //     direction.remove();
-    //   }, 1000)  
-    // }
     ///////////////////////
 
 
@@ -116,7 +106,8 @@ function renderBot(targetPosition){
       prevTile.id = "I"
     } 
     if (newTile.id === "W"){
-      setTimeout(function(){alert(("TIME OUT!"), 1000)})
+      setTimeout(function(){alert((`YOU'RE SCORE IS: ${score}`), 10000)})
+      clearInterval(timerEvent)
     }
 
   newTile.id = "robot"
