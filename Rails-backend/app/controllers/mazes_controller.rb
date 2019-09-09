@@ -9,10 +9,4 @@ class MazesController < ApplicationController
         render json: mazes
     end
 
-    def destroy
-        maze = Maze.find(params[:id])
-        maze.destroy
-
-        render json: {message: "Successfully deleted"}
-    end
 end
