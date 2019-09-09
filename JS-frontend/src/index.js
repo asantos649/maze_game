@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", function(){
     // goButton.addEventListener('click', () =>{
     //     timerEvent = setInterval(subtractFromCounter, 0500);
     //  })
-    scoreBoard.innerText = score
+    scoreBoard.innerText = `Score: ${score}`;
      function subtractFromCounter(){
        score --;
-       scoreBoard.innerText = score;
+       scoreBoard.innerText = `Score: ${score}`;
        if (score === 0){
          clearInterval(timerEvent)
          alert("TIMES OUT!")}
@@ -110,7 +110,7 @@ function renderBot(targetPosition){
       clearInterval(timerEvent)
     }
 
-  newTile.id = "robot"
+  newTile.id = "kirby"
   prevTile = newTile
 
   return true
