@@ -29,6 +29,6 @@ class RunsController < ApplicationController
     private
 
     def run_params
-      params.require(:run).permit(:maze_id, :score)
+      params.require(:run).permit(:maze_id, :score, :user)
     end
 end

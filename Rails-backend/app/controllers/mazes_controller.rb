@@ -5,7 +5,7 @@ class MazesController < ApplicationController
     end
 
     def index
-        mazes = Mazes.all
+        mazes = Maze.all
         render json: mazes
     end
 
