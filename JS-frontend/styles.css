@@ -26,7 +26,8 @@ width: 4.5vh;
 /* transition-duration: 2s; */
 }
 #kirby {
-background-image: url("https://art.pixilart.com/66da8df531dd67b.gif");
+background-image: url("https://i.imgur.com/lZ2HA6Z.gif");
+/* background-image: url("https://art.pixilart.com/66da8df531dd67b.gif"); */
 background-color:rgb(224,224,224);
 background-repeat: no-repeat;
 background-size: 4vh 4vh;
@@ -40,10 +41,10 @@ color: rgb(71, 55, 55);
 margin: 0px;
 }
 #O {
-/* background-image: url("https://www.nerdtests.com/mq/testimages/259251_5423e58637983840a813.jpg"); */
-/* background-repeat: no-repeat;
+background-image: url(https://i.imgur.com/ru2U5HW.png);
+background-repeat: no-repeat;
 background-size: 5vh 5vh;
-background-position: center; */
+background-position: center;
 background-color:rgb(211, 156, 156);
 }
 #I{
@@ -56,6 +57,11 @@ background-size: 5vh 5vh;
 background-position: center; */
 background-color: rgb(246, 192, 91);
 }
-#T {
-background-color:rgb(199, 92, 92);
+#T { 
+background-image: url('https://i.imgur.com/e7NIivG.png');
+background-repeat: no-repeat;
+background-size: 4vh 4vh;
+background-position: center;
+/* background-color:rgb(199, 92, 92); */
+background-color:rgb(224,224,224);
 }
