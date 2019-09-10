@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 2019_09_09_134542) do
   create_table "mazes", force: :cascade do |t|
     t.json "grid"
     t.string "name"
-    t.integer "high_score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -23,19 +22,11 @@ ActiveRecord::Schema.define(version: 2019_09_09_134542) do
   create_table "runs", force: :cascade do |t|
     t.integer "score"
     t.integer "time"
-    t.integer "user_id"
+    t.string "user", default: "Not Entered"
     t.integer "maze_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["maze_id"], name: "index_runs_on_maze_id"
-    t.index ["user_id"], name: "index_runs_on_user_id"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.integer "high_score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end

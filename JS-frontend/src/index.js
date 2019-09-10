@@ -6,10 +6,12 @@ document.addEventListener("DOMContentLoaded", function(){
     let prevTile;
     NodeList.prototype.find = Array.prototype.find
     const scoreBoard = document.querySelector('.scoreboard')
+    const highScores = document.querySelector('.highscore')
     let score = 10;
     // const goButton = document.querySelector('.go')
     let timerEvent = null
     let mapInfo = null
+    let mazeId = 1
 
     //WHERE YOU START THE TIME
     // goButton.addEventListener('click', () =>{
@@ -24,7 +26,28 @@ document.addEventListener("DOMContentLoaded", function(){
          alert("TIMES OUT!")}
      }
 
-    createGrid();
+     createGrid();
+
+     //renders top 5 scores in highscores
+     fetch('http://localhost:3000/runs')
+    .then(resp => resp.json())
+    .then(runs => {
+      const mazeRuns = runs.filter(run =>{          
+                          return run.maze_id === mazeId
+                        })
+                        console.log(mazeRuns)
+      const sorted = mazeRuns.sort(function(a, b){return b.score-a.score})
+      
+      for (i=0;i<5;i++){
+        if (sorted[i]) {
+          highScores.insertAdjacentHTML('beforeend',
+            `<div>${i+1}:${sorted[i].score}-${sorted[i].user}</div>`
+          )
+        }
+      }
+    })
+
+    
     // setTimeout(renderBot(currentPosition), 1000);
     
     document.addEventListener("keydown", logKey);
@@ -62,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function createGrid(){
     const board = document.querySelector("#board")
-    fetch('http://localhost:3000/mazes/1')
+    fetch(`http://localhost:3000/mazes/${mazeId}`)
     .then(resp => resp.json())
     .then(maze => {
         mapInfo = JSON.parse(maze.grid)

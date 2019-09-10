@@ -4,6 +4,11 @@ class RunsController < ApplicationController
         render json: run
     end
 
+    def index
+      runs = Run.all
+      render json: runs
+    end
+
     def create
         run = Run.new(run_params)
 
