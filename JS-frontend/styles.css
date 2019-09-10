@@ -17,6 +17,7 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 margin-right: auto;
+margin-left: auto;
 }
 .tile {
 /* border-style: solid; */
@@ -51,17 +52,21 @@ background-color:rgb(211, 156, 156);
 background-color:rgb(224,224,224);
 }
 #W {
-/* background-image: url(" https://bakerycakesprices.com/wp-content/uploads/2019/02/1515516308_estrelinha-gif.gif");
-background-repeat: no-repeat;
-background-size: 5vh 5vh;
-background-position: center; */
-background-color: rgb(246, 192, 91);
+  background-image: url('https://i.imgur.com/CiCBJAF.gif');
+  background-repeat: no-repeat;
+  background-size: 4vh 4vh;
+  background-position: center;
+  background-color:rgb(224,224,224);
 }
 #T { 
-background-image: url('https://i.imgur.com/e7NIivG.png');
+background-image: url('https://i.imgur.com/CiCBJAF.gif');
 background-repeat: no-repeat;
 background-size: 4vh 4vh;
 background-position: center;
 /* background-color:rgb(199, 92, 92); */
 background-color:rgb(224,224,224);
+}
+
+.list {
+  margin-top: 20px;
 }

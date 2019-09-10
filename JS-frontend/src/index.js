@@ -2,21 +2,37 @@
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    let currentPosition = { x: 17, y: 17}
+    let currentPosition = { x: 1, y: 0}
     let prevTile;
     NodeList.prototype.find = Array.prototype.find
     const scoreBoard = document.querySelector('.scoreboard')
     const highScores = document.querySelector('.highscore')
-    let score = 10;
+    const mazeList = document.querySelector('.list')
+    let score = 100;
     // const goButton = document.querySelector('.go')
     let timerEvent = null
     let mapInfo = null
-    let mazeId = 1
+    let mazeId = null
 
     //WHERE YOU START THE TIME
     // goButton.addEventListener('click', () =>{
     //     timerEvent = setInterval(subtractFromCounter, 0500);
     //  })
+    fetch('http://localhost:3000/mazes')
+    .then(resp => resp.json())
+    .then(mazes => {
+      console.log(mazes)
+      mazes.forEach(maze =>{
+        mazeList.insertAdjacentHTML('beforeend',
+          `<div data-id ='${maze.id}'>${maze.name}</div>`
+        )
+      })
+      console.log(mazes[0].id)
+      mazeId = mazes[0].id
+      createGrid();
+      renderScores(mazeId);
+    })
+
     scoreBoard.innerText = `Score: ${score}`;
      function subtractFromCounter(){
        score --;
@@ -26,88 +42,79 @@ document.addEventListener("DOMContentLoaded", function(){
          alert("TIMES OUT!")}
      }
 
-     createGrid();
+     
 
      //renders top 5 scores in highscores
-     fetch('http://localhost:3000/runs')
-    .then(resp => resp.json())
-    .then(runs => {
-      const mazeRuns = runs.filter(run =>{          
-                          return run.maze_id === mazeId
-                        })
-                        console.dir(mazeRuns)
-      const sorted = mazeRuns.sort(function(a, b){return b.score-a.score})
-      
-      for (i=0;i<5;i++){
-        if (sorted[i]) {
-          highScores.insertAdjacentHTML('beforeend',
-            `<div>${i+1}:${sorted[i].score}-${sorted[i].user}</div>`
-          )
+     function renderScores(maze){
+       highScores.innerHTML = ''
+       highScores.innerText = 'High Scores:'
+      fetch('http://localhost:3000/runs')
+      .then(resp => resp.json())
+      .then(runs => {
+        const mazeRuns = runs.filter(run =>{          
+                            return run.maze_id === parseInt(maze)
+                          })
+        const sorted = mazeRuns.sort(function(a, b){return b.score-a.score})
+        
+        for (i=0;i<5;i++){
+          if (sorted[i]) {
+            highScores.insertAdjacentHTML('beforeend',
+              `<div>${i+1}:${sorted[i].score}-${sorted[i].user}</div>`
+            )
+          }
         }
-      }
+      })
+    }
+    
+
+
+    //renders list of all mazes
+    
+
+    mazeList.addEventListener('click',e =>{
+      mazeId = e.target.dataset.id
+      createGrid();
+      currentPosition = { x: 1, y: 0}
+      renderBot();
+      score = 100;
+      clearInterval(timerEvent);
+      scoreBoard.innerText = `Score: ${score}`;
+      timerEvent = null
+      renderScores(mazeId)
+      console.dir(highScores)
     })
 
     
     // setTimeout(renderBot(currentPosition), 1000);
-    
-    document.addEventListener("keydown", logKey);
-      function logKey(e) {
-        if (!timerEvent)
-          timerEvent = setInterval(subtractFromCounter, 0500)
-        if (e.code === 'ArrowLeft'){
-          move("left")
+    // function addKeyListener(){
+      document.addEventListener("keydown", logKey);
+        function logKey(e) {
+          e.preventDefault();
+          if (!timerEvent)
+            timerEvent = setInterval(subtractFromCounter, 0500)
+          if (e.code === 'ArrowLeft'){
+            move("left")
+          }
+          if (e.code === 'ArrowUp'){
+            move("up")
+          }
+          if (e.code  === 'ArrowDown'){
+            move("down")
+          }
+          if (e.code  === 'ArrowRight'){
+            move("right")
+          }
         }
-        if (e.code === 'ArrowUp'){
-          move("up")
-        }
-        if (e.code  === 'ArrowDown'){
-          move("down")
-        }
-        if (e.code  === 'ArrowRight'){
-          move("right")
-        }
-  
-        // console.log(e.code);
-    }
-  
-    // document.querySelector("#move-button").addEventListener("click", moveRobot)
-    
-    // function moveRobot(){
-    //   setInterval(function(){
-    //     let direction = document.querySelectorAll("li")[0];
-    //     move(direction.innerText);
-    //     direction.remove();
-    //   }, 500)  
-    // } 
-      
-    ///////////////////////
+
 
 
     function createGrid(){
       const board = document.querySelector("#board")
+      board.innerHTML = ''
       fetch(`http://localhost:3000/mazes/${mazeId}`)
       .then(resp => resp.json())
       .then(maze => {
           mapInfo = JSON.parse(maze.grid)
-      //   let mapInfo = [['O', 'I', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], 
-      //                  ['O', 'I', 'O', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'O'],
-      //                  ['O', 'I', 'O', 'I', 'O', 'O', 'O', 'I', 'O', 'I', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
-      //                  ['O', 'I', 'I', 'I', 'O', 'I', 'I', 'I', 'O', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'O'],
-      //                  ['O', 'I', 'O', 'O', 'O', 'I', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'I', 'O', 'I', 'O'],
-      //                  ['O', 'I', 'O', 'I', 'I', 'I', 'O', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'O', 'I', 'O', 'I', 'O'],
-      //                  ['O', 'I', 'O', 'O', 'O', 'O', 'O', 'I', 'O', 'O', 'O', 'O', 'O', 'I', 'O', 'O', 'O', 'I', 'O'],
-      //                  ['O', 'I', 'I', 'I', 'O', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'O', 'I', 'O', 'I', 'I', 'I', 'O'],
-      //                  ['O', 'O', 'O', 'I', 'O', 'I', 'O', 'O', 'O', 'O', 'O', 'I', 'O', 'I', 'O', 'I', 'O', 'I', 'O'],
-      //                  ['O', 'I', 'I', 'I', 'O', 'I', 'O', 'I', 'I', 'I', 'O', 'I', 'O', 'I', 'O', 'I', 'O', 'I', 'O'],
-      //                  ['O', 'O', 'O', 'I', 'O', 'I', 'O', 'I', 'O', 'I', 'O', 'I', 'O', 'I', 'O', 'I', 'O', 'I', 'O'],
-      //                  ['O', 'I', 'I', 'I', 'O', 'I', 'I', 'I', 'O', 'I', 'O', 'I', 'O', 'I', 'I', 'I', 'O', 'I', 'O'],
-      //                  ['O', 'I', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'I', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
-      //                  ['O', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'O', 'I', 'O', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'O'],
-      //                  ['O', 'O', 'O', 'O', 'O', 'I', 'O', 'I', 'O', 'I', 'O', 'I', 'O', 'O', 'O', 'O', 'O', 'I', 'O'],
-      //                  ['O', 'I', 'I', 'I', 'O', 'I', 'O', 'I', 'O', 'I', 'I', 'I', 'O', 'I', 'I', 'I', 'O', 'I', 'O'],
-      //                  ['O', 'I', 'O', 'O', 'O', 'I', 'O', 'I', 'O', 'O', 'O', 'O', 'O', 'I', 'O', 'I', 'O', 'I', 'O'],
-      //                  ['O', 'I', 'I', 'I', 'I', 'I', 'O', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'O', 'I', 'O', 'I', 'W'],
-      //                  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O']]
         for (let y=0; y < 19; y++){
             for (let x=0; x < 19; x++){
             board.insertAdjacentHTML('beforeend', `
@@ -136,9 +143,15 @@ document.addEventListener("DOMContentLoaded", function(){
               prevTile.id = "I"
             } 
             if (newTile.id === "W"){
-              setTimeout(function(){alert((`YOU'RE SCORE IS: ${score}`), 10000)})
+              let name = null
+              setTimeout(function(){
+                name = prompt(`Your score is ${score}.  Please Enter your name`, "AAA")
+                saveRunInfo({maze_id: mazeId, score: score, user: name})
+                location.reload(true);
+              }, 0000)
               clearInterval(timerEvent);
-              saveRunInfo({maze_id: mazeId, score: score});
+              // const name = prompt(`Your score is ${score}.  Please Enter your name`, "AAA")
+              
             }
             if (newTile.id === "T"){
               score += 20;
