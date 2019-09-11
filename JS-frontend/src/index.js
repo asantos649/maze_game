@@ -177,13 +177,13 @@ document.addEventListener("DOMContentLoaded", function(){
               // saveRunInfo({maze_id: mazeId, score: score, user: name})
 
               toggleModal()
-              setTimeout(function (){
-                var closeButton = document.querySelector(".close-button");
-                closeButton.addEventListener("click", (e) =>{
-                  toggleModal()
-                  reRender();
-                });
-              },0000)
+              // setTimeout(function (){
+              //   var closeButton = document.querySelector(".close-button");
+              //   closeButton.addEventListener("click", (e) =>{
+              //     toggleModal()
+              //     reRender();
+              //   });
+              // },0000)
 
               clearInterval(timerEvent);
             }
@@ -252,7 +252,6 @@ function toggleModal() {
                               </div>`
     } else{
       modal.innerHTML = `    <div class="modal-content">
-                                <span class="close-button">&times;</span>
                                 <h1>Final score: ${score}</h1>
                                 <form id = 'name-entry'>
                                   <p>Name <input type = 'text' name = 'user' /><p>
