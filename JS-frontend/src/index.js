@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const scoreBoard = document.querySelector('.scoreboard')
     const highScores = document.querySelector('.highscore')
     const mazeList = document.querySelector('.list')
-    let score = 100;
+    let score = 20;
     // const goButton = document.querySelector('.go')
     let timerEvent = null
     let mapInfo = null
@@ -18,36 +18,39 @@ document.addEventListener("DOMContentLoaded", function(){
     // goButton.addEventListener('click', () =>{
     //     timerEvent = setInterval(subtractFromCounter, 0500);
     //  })
+
+    // renders list of all maze levels
     fetch('http://localhost:3000/mazes')
     .then(resp => resp.json())
     .then(mazes => {
       console.log(mazes)
       mazes.forEach(maze =>{
         mazeList.insertAdjacentHTML('beforeend',
-          `<div data-id ='${maze.id}'>${maze.name}</div>`
+          `<div class= "levelListItem" data-id ='${maze.id}'>${maze.name.toUpperCase()}</div>`
         )
       })
-      console.log(mazes[0].id)
       mazeId = mazes[0].id
       createGrid();
       renderScores(mazeId);
     })
 
-    scoreBoard.innerText = `Score: ${score}`;
+    scoreBoard.innerText = `Time: ${score}`;
      function subtractFromCounter(){
        score --;
        scoreBoard.innerText = `Score: ${score}`;
        if (score === 0){
          clearInterval(timerEvent)
-         alert("TIMES OUT!")}
+         alert("TIMES OUT!")
+         location.reload(true);
+       }
+    
      }
 
      
 
      //renders top 5 scores in highscores
      function renderScores(maze){
-       highScores.innerHTML = ''
-       highScores.innerText = 'High Scores:'
+      highScores.innerHTML = `<p class = "highscoreHeader">High Scores:</p>`
       fetch('http://localhost:3000/runs')
       .then(resp => resp.json())
       .then(runs => {
@@ -59,18 +62,16 @@ document.addEventListener("DOMContentLoaded", function(){
         for (i=0;i<5;i++){
           if (sorted[i]) {
             highScores.insertAdjacentHTML('beforeend',
-              `<div>${i+1}:${sorted[i].score}-${sorted[i].user}</div>`
+              // `<div>${i+1}: ${sorted[i].score} ${sorted[i].user}</div>`
+              `<div class="highscoreListItem">${sorted[i].score} - ${sorted[i].user}</div>`
             )
           }
         }
       })
     }
+
+
     
-
-
-    //renders list of all mazes
-    
-
     mazeList.addEventListener('click',e =>{
       mazeId = e.target.dataset.id
       createGrid();
@@ -133,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function(){
             return parseInt(tile.dataset.x) === targetPosition.x && parseInt(tile.dataset.y) === targetPosition.y
         })
 
-        // console.dir(newTile)
+        console.dir(newTile)
 
         if (!newTile || newTile.id === "O"){
             return false
@@ -144,20 +145,20 @@ document.addEventListener("DOMContentLoaded", function(){
             } 
             if (newTile.id === "W"){
               let name = null
-              setTimeout(function(){
+              // setTimeout(function(){
                 name = prompt(`Your score is ${score}.  Please Enter your name`, "AAA")
                 saveRunInfo({maze_id: mazeId, score: score, user: name})
                 location.reload(true);
-              }, 0000)
+              // }, 0000)
               clearInterval(timerEvent);
               // const name = prompt(`Your score is ${score}.  Please Enter your name`, "AAA")
-              
             }
             if (newTile.id === "T"){
               score += 20;
             }
 
         newTile.id = "kirby"
+        /// LOL
         prevTile = newTile
 
         return true
@@ -170,6 +171,9 @@ document.addEventListener("DOMContentLoaded", function(){
     let y = currentPosition.y;
     switch(direction){
         case "left":
+        //////  
+        newTile.id = "kirby"
+        //////
         x--
         break;
         case "right":

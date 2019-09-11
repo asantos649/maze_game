@@ -4,18 +4,28 @@
   <meta charset="UTF-8">
   <title>Kirby Maze</title>
   <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 ​
 <body>
-    <span class = "highscore"></span>
-  <span class = "flexy">
-    <h1>Kirby Maze</h1>
-    <span class = 'scoreboard'></span>
-    <span id="board"></span>
-  </span>
-    <span class = "list">Mazes:</span>
-  
+  <div class = "center">
+    <span class = "header">
+        <h1>Kirby Maze</h1>
+        <div class = 'scoreboard'></div>
+    </span>
+    <span class = "parentFlex">
+      
+      <span class = "flex1">
+        <span id="board"></span>
+      </span>
+      <span class = "flex2">
+        <span class = "highscore"></span>
+        <span class = "list"><p class = "mazesHeader">Mazes:</p></span>
+      </span>
+    </span>
+  </div>
+
 </body>
 <script type="text/javascript" src="./src/movement.js"></script>
 <script type="text/javascript" src="./src/index.js"></script>
