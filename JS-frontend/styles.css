@@ -83,20 +83,20 @@ margin: 0px;
 #O {
 background-image: url('https://i.imgur.com/CiCBJAF.gif');
 background-repeat: no-repeat;
-background-size: 5vh 5vh;
+background-size: 4.5vh 4.5vh;
 background-position: center;
 }
 .pink #O{
-  background-image: url(https://i.imgur.com/ru2U5HW.png);
+  background-image: url(https://i.imgur.com/VXpw7Mt.png);
 }
 .blue #O{
-  background-image: url(https://i.imgur.com/ru2U5HW.png);
+  background-image: url(https://i.imgur.com/rN6ZgGS.png);
 }
 .purple #O{
   background-image: url(https://i.imgur.com/ru2U5HW.png);
 }
 .green #O{
-  background-image: url(https://i.imgur.com/ru2U5HW.png);
+  background-image: url(https://i.imgur.com/sp4DwQi.png);
 }
 #I{
 background-color:rgb(224,224,224);
@@ -155,4 +155,46 @@ p.mazesHeader{
   color: rgb(119, 106, 106);
   font-size: 14px;
   margin: 0;
+}
+
+/* for modal */
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1rem 1.5rem;
+  width: 24rem;
+  border-radius: 0.5rem;
+}
+.close-button {
+  float: right;
+  width: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: lightgray;
+}
+.close-button:hover {
+  background-color: darkgray;
+}
+.show-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.0);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }

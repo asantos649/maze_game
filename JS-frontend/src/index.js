@@ -1,14 +1,15 @@
 
 
 document.addEventListener("DOMContentLoaded", function(){
-
-    let currentPosition = { x: 1, y: 0}
+    let startingPosition = { x: 17, y: 17}
+    let currentPosition = startingPosition
     let prevTile;
     NodeList.prototype.find = Array.prototype.find
     const time = document.querySelector('.time')
     const highScores = document.querySelector('.highscore')
     const mazeList = document.querySelector('.list')
     let score = 20;
+    const container = document.querySelector('.center')
     // const goButton = document.querySelector('.go')
     let timerEvent = null
     let mapInfo = null
@@ -46,8 +47,16 @@ document.addEventListener("DOMContentLoaded", function(){
        time.innerText = `${mazeTitle}  | Time: ${score}`;
        if (score === 0){
          clearInterval(timerEvent)
-         alert("TIMES OUT!")
-         //location.reload(true);
+        //  alert("TIMES OUT!")
+        toggleModal();
+        setTimeout(function (){
+          var closeButton = document.querySelector(".close-button");
+          closeButton.addEventListener("click", (e) =>{
+            toggleModal()
+            reRender();
+          });
+        },0000)
+         reRender();
        }
     
      }
@@ -75,24 +84,20 @@ document.addEventListener("DOMContentLoaded", function(){
         }
       })
     }
-
+    function reRender(){
+      score = 20;
+      time.innerText = `${mazeTitle}  | Time: ${score}`
+      currentPosition = startingPosition
+      clearInterval(timerEvent);
+      timerEvent = null
+      renderMazeList()
+    }
 
     //maze list click event (switch level)
     mazeList.addEventListener('click',e =>{
       mazeId = e.target.dataset.id
       mazeTitle = e.target.innerText
-      score = 20;
-      time.innerText = `${mazeTitle}  | Time: ${score}`
-      //createGrid();
-      currentPosition = { x: 1, y: 0}
-      //renderBot();
- 
-      clearInterval(timerEvent);
-      timerEvent = null
-      //renderScores(mazeId)
-      renderMazeList()
-      renderScores(mazeId)
-
+      reRender();
     })
 
     
@@ -100,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function(){
     // function addKeyListener(){
       document.addEventListener("keydown", logKey);
         function logKey(e) {
-          e.preventDefault();
+          // e.preventDefault();
           if (!timerEvent)
             timerEvent = setInterval(subtractFromCounter, 0500)
           if (e.code === 'ArrowLeft'){
@@ -167,14 +172,20 @@ document.addEventListener("DOMContentLoaded", function(){
               prevTile.id = "I"
             } 
             if (newTile.id === "W"){
-              let name = null
-              // setTimeout(function(){
-                name = prompt(`Your score is ${score}.  Please Enter your name`, "AAA")
-                saveRunInfo({maze_id: mazeId, score: score, user: name})
-                location.reload(true);
-              // }, 0000)
+              let name = null        
+              // name = prompt(`Your score is ${score}.  Please Enter your name`, "AAA")
+              // saveRunInfo({maze_id: mazeId, score: score, user: name})
+
+              toggleModal()
+              setTimeout(function (){
+                var closeButton = document.querySelector(".close-button");
+                closeButton.addEventListener("click", (e) =>{
+                  toggleModal()
+                  reRender();
+                });
+              },0000)
+
               clearInterval(timerEvent);
-              // const name = prompt(`Your score is ${score}.  Please Enter your name`, "AAA")
             }
             if (newTile.id === "T"){
               score += 20;
@@ -225,4 +236,47 @@ document.addEventListener("DOMContentLoaded", function(){
       })
       .then(resp => resp.json())
     }
+
+
+// For modal
+var modal = document.querySelector(".modal");
+var trigger = document.querySelector(".trigger");
+// var closeButton = document.querySelector(".close-button");
+
+function toggleModal() {
+    modal.classList.toggle("show-modal");
+    if (score === 0){
+      modal.innerHTML = `    <div class="modal-content">
+                                <span class="close-button">&times;</span>
+                                <h1>Out of time</h1>
+                              </div>`
+    } else{
+      modal.innerHTML = `    <div class="modal-content">
+                                <span class="close-button">&times;</span>
+                                <h1>Final score: ${score}</h1>
+                                <form id = 'name-entry'>
+                                  <p>Name <input type = 'text' name = 'user' /><p>
+                                  <input type = 'submit' name = 'submit'>
+                                </form>
+                              </div>`
+      let nameEntry = modal.querySelector('#name-entry')
+      console.log(nameEntry)
+      nameEntry.addEventListener('submit', e =>{
+        e.preventDefault()
+        let name = e.target.user.value
+        console.log(e.target.user.value)
+        saveRunInfo({maze_id: mazeId, score: score, user: name})
+        toggleModal()
+        reRender();
+      })
+    }
+}
+
+function windowOnClick(event) {
+    if (event.target === modal) {
+        toggleModal();
+    }
+}
+
+
 });
