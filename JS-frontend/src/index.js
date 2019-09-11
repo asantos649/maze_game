@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let timerEvent = null
     let mapInfo = null
     let mazeId = null
+    let mazeTitle = null
 
     //WHERE YOU START THE TIME
     // goButton.addEventListener('click', () =>{
@@ -23,21 +24,21 @@ document.addEventListener("DOMContentLoaded", function(){
     fetch('http://localhost:3000/mazes')
     .then(resp => resp.json())
     .then(mazes => {
-      console.log(mazes)
       mazes.forEach(maze =>{
         mazeList.insertAdjacentHTML('beforeend',
           `<div class= "levelListItem" data-id ='${maze.id}'>${maze.name.toUpperCase()}</div>`
         )
       })
       mazeId = mazes[0].id
+      mazeTitle = mazes[0].name
       createGrid();
       renderScores(mazeId);
     })
-
-    scoreBoard.innerText = `Time: ${score}`;
+    .then(() => scoreBoard.innerText = `${mazeTitle}  | Time: ${score}`)
+    
      function subtractFromCounter(){
        score --;
-       scoreBoard.innerText = `Score: ${score}`;
+       scoreBoard.innerText = `${mazeTitle}  | Time: ${score}`;
        if (score === 0){
          clearInterval(timerEvent)
          alert("TIMES OUT!")
@@ -71,18 +72,19 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 
-    
+    //change mazes
     mazeList.addEventListener('click',e =>{
       mazeId = e.target.dataset.id
+      mazeTitle = e.target.innerText
+      score = 20;
+      scoreBoard.innerText = `${mazeTitle}  | Time: ${score}`
       createGrid();
       currentPosition = { x: 1, y: 0}
       renderBot();
-      score = 100;
+ 
       clearInterval(timerEvent);
-      scoreBoard.innerText = `Score: ${score}`;
       timerEvent = null
       renderScores(mazeId)
-      console.dir(highScores)
     })
 
     
@@ -134,8 +136,6 @@ document.addEventListener("DOMContentLoaded", function(){
             return parseInt(tile.dataset.x) === targetPosition.x && parseInt(tile.dataset.y) === targetPosition.y
         })
 
-        console.dir(newTile)
-
         if (!newTile || newTile.id === "O"){
             return false
         } 
@@ -171,9 +171,6 @@ document.addEventListener("DOMContentLoaded", function(){
     let y = currentPosition.y;
     switch(direction){
         case "left":
-        //////  
-        newTile.id = "kirby"
-        //////
         x--
         break;
         case "right":

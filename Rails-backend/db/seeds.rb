@@ -50,5 +50,5 @@ grid2 = [   ['O', 'I', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O
             ['O', 'I', 'I', 'I', 'I', 'I', 'O', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'O', 'I', 'I', 'I', 'W'],
             ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O']].to_json
 
-Maze.create({name: 'First Maze', grid: grid1})
-Maze.create({name: 'Second Maze', grid: grid2})
+Maze.create({name: 'Pop Star', grid: grid1})
+Maze.create({name: 'Crystal Cave', grid: grid2})

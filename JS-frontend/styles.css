@@ -39,8 +39,8 @@ grid-template-columns: repeat(19, 4.5vh);
   /* display: flex;
   flex-direction: column;
   justify-content: center; */
-  width: 975px;
-  margin: 0 auto;
+  width: 90%;
+  margin: 0 15% auto 10%;
   height: 100%;
 
 }
@@ -133,6 +133,7 @@ p.mazesHeader{
   color: rgb(119, 106, 106);
   font-size: 14px;
   margin: 0;
+  cursor: pointer
 }
 .highscoreListItem{
   /* font-family: 'Lato', sans-serif; */
