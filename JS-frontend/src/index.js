@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let currentPosition = { x: 1, y: 0}
     let prevTile;
     NodeList.prototype.find = Array.prototype.find
-    const scoreBoard = document.querySelector('.scoreboard')
+    const time = document.querySelector('.time')
     const highScores = document.querySelector('.highscore')
     const mazeList = document.querySelector('.list')
     let score = 20;
@@ -15,30 +15,35 @@ document.addEventListener("DOMContentLoaded", function(){
     let mazeId = null
     let mazeTitle = null
 
-    //WHERE YOU START THE TIME
-    // goButton.addEventListener('click', () =>{
-    //     timerEvent = setInterval(subtractFromCounter, 0500);
-    //  })
-
-    // renders list of all maze levels
+  // renders list of all maze levels
+  function renderMazeList(){
+    mazeList.innerHTML = `<p class = "mazesHeader">Mazes:</p>`
     fetch('http://localhost:3000/mazes')
     .then(resp => resp.json())
     .then(mazes => {
+      mazeId = mazeId || mazes[0].id
+      mazeTitle = mazeTitle || mazes[0].name
       mazes.forEach(maze =>{
-        mazeList.insertAdjacentHTML('beforeend',
-          `<div class= "levelListItem" data-id ='${maze.id}'>${maze.name.toUpperCase()}</div>`
-        )
+        console.log(maze.id === mazeId)
+        if (parseInt(maze.id) === parseInt(mazeId)){
+          mazeList.insertAdjacentHTML('beforeend',
+          `<div class= "levelListItemRed" data-id ='${maze.id}'>${maze.name.toUpperCase()}</div>`)
+        }
+        else {
+          mazeList.insertAdjacentHTML('beforeend',
+          `<div class= "levelListItem" data-id ='${maze.id}'>${maze.name.toUpperCase()}</div>`)
+        }
       })
-      mazeId = mazes[0].id
-      mazeTitle = mazes[0].name
       createGrid();
       renderScores(mazeId);
-    })
-    .then(() => scoreBoard.innerText = `${mazeTitle}  | Time: ${score}`)
+    }).then(() => time.innerText = `${mazeTitle}  | Time: ${score}`)
+  }
+
+  renderMazeList()
     
      function subtractFromCounter(){
        score --;
-       scoreBoard.innerText = `${mazeTitle}  | Time: ${score}`;
+       time.innerText = `${mazeTitle}  | Time: ${score}`;
        if (score === 0){
          clearInterval(timerEvent)
          alert("TIMES OUT!")
@@ -72,19 +77,22 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 
-    //change mazes
+    //maze list click event (switch level)
     mazeList.addEventListener('click',e =>{
       mazeId = e.target.dataset.id
       mazeTitle = e.target.innerText
       score = 20;
-      scoreBoard.innerText = `${mazeTitle}  | Time: ${score}`
-      createGrid();
+      time.innerText = `${mazeTitle}  | Time: ${score}`
+      //createGrid();
       currentPosition = { x: 1, y: 0}
-      renderBot();
+      //renderBot();
  
       clearInterval(timerEvent);
       timerEvent = null
+      //renderScores(mazeId)
+      renderMazeList()
       renderScores(mazeId)
+
     })
 
     
@@ -203,18 +211,3 @@ document.addEventListener("DOMContentLoaded", function(){
       .then(resp => resp.json())
     }
 });
-  
-  
-/////////////
-
-// instead of alert
-
-// document.addEventListener("click",(event) => {
-//   event.preventDefault()
-//   const div = document.createElement("div")
-//   div.innerHTML = '<iframe title="advertisement" height="250px" width="425px" src="https://www.youtube.com/embed/a8XC4H84rMU?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
-// div.style.position = "absolute"
-// div.style.top = `${event.clientY}px`
-// div.style.left = `${event.clientX}px`
-// document.body.append(div)
-// })
