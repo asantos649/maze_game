@@ -76,10 +76,12 @@ document.addEventListener("DOMContentLoaded", function(){
         
         for (i=0;i<5;i++){
           if (sorted[i]) {
-            highScores.insertAdjacentHTML('beforeend',
-              // `<div>${i+1}: ${sorted[i].score} ${sorted[i].user}</div>`
-              `<div class="highscoreListItem">${sorted[i].score} - ${sorted[i].user}</div>`
-            )
+            if (sorted[i].user){
+              highScores.insertAdjacentHTML('beforeend',
+                // `<div>${i+1}: ${sorted[i].score} ${sorted[i].user}</div>`
+                `<div class="highscoreListItem">${sorted[i].score} - ${sorted[i].user.substring(0,8)}</div>`
+              )
+            }
           }
         }
       })
