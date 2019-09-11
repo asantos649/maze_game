@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function(){
        if (score === 0){
          clearInterval(timerEvent)
          alert("TIMES OUT!")
-         location.reload(true);
+         //location.reload(true);
        }
     
      }
@@ -126,10 +126,25 @@ document.addEventListener("DOMContentLoaded", function(){
       .then(resp => resp.json())
       .then(maze => {
           mapInfo = JSON.parse(maze.grid)
+          let color = "pink";
+          /////
+          if (maze.name === "Pop Star"){
+            color = "pink"
+          }
+          if (maze.name === "Crystal Cave"){
+            color = "blue"
+          }
+          if (maze.name === "Dark Labyrinth"){
+            color = "purple"
+          }
+          if (maze.name === "Fountain of Dreams"){
+            color = "green"
+          }
+          /////
         for (let y=0; y < 19; y++){
             for (let x=0; x < 19; x++){
             board.insertAdjacentHTML('beforeend', `
-                <div class="tile" data-x=${x} data-y=${y} id=${mapInfo[y][x]}></div>
+                <span class = ${color}><div class="tile" data-x=${x} data-y=${y} id=${mapInfo[y][x]}></div>
             `)
             }
         }

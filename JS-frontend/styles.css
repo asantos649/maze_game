@@ -62,11 +62,8 @@ grid-template-columns: repeat(19, 4.5vh);
   height: 100%;
 }
 .tile {
-/* border-style: solid; */
-/* border-width: 1px; */
 height: 4.5vh;
 width: 4.5vh;
-/* transition-duration: 2s; */
 }
 #kirby {
 background-image: url("https://i.imgur.com/lZ2HA6Z.gif");
@@ -84,11 +81,22 @@ color: rgb(71, 55, 55);
 margin: 0px;
 }
 #O {
-background-image: url(https://i.imgur.com/ru2U5HW.png);
+background-image: url('https://i.imgur.com/CiCBJAF.gif');
 background-repeat: no-repeat;
 background-size: 5vh 5vh;
 background-position: center;
-background-color:rgb(211, 156, 156);
+}
+.pink #O{
+  background-image: url(https://i.imgur.com/ru2U5HW.png);
+}
+.blue #O{
+  background-image: url(https://i.imgur.com/ru2U5HW.png);
+}
+.purple #O{
+  background-image: url(https://i.imgur.com/ru2U5HW.png);
+}
+.green #O{
+  background-image: url(https://i.imgur.com/ru2U5HW.png);
 }
 #I{
 background-color:rgb(224,224,224);

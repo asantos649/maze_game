@@ -52,3 +52,5 @@ grid2 = [   ['O', 'I', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O
 
 Maze.create({name: 'Pop Star', grid: grid1})
 Maze.create({name: 'Crystal Cave', grid: grid2})
+Maze.create({name: 'Dark Labyrinth', grid: grid1}) 
+Maze.create({name: 'Fountain of Dreams', grid: grid1})
