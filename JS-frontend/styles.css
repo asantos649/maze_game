@@ -118,6 +118,14 @@ background-position: center;
 background-color:rgb(224,224,224);
 }
 
+#pastT { 
+  background-image: url(https://pbs.twimg.com/profile_images/1162445050590183424/WL2lQ7OR.jpg);
+  background-repeat: no-repeat;
+  background-size: 3.5vh 3.5vh;
+  background-position: center;
+  background-color:rgb(224,224,224);
+  }
+
 .list {
   margin-top: 20px;
   width: 130%;

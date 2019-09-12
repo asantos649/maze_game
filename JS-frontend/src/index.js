@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let mazeId = null
     let mazeTitle = null
     const nameList = {}
+    let wasOnTreasure = false
 
   // renders list of all maze levels
   function renderMazeList(){
@@ -182,15 +183,23 @@ document.addEventListener("DOMContentLoaded", function(){
         else {
             if (prevTile){
               prevTile.id = "I"
+              if (wasOnTreasure){
+                prevTile.id = "pastT"
+                wasOnTreasure = false
+              } else {
+                prevTile.id = "I"
+              }
             } 
             if (newTile.id === "W"){
-              let name = null        
+              // let name = null        
               toggleModal()
               clearInterval(timerEvent);
             }
             if (newTile.id === "T"){
               score += 20;
-            }
+              console.log(score)
+              wasOnTreasure = true
+            } 
 
         newTile.id = "kirby"
         prevTile = newTile
