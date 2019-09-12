@@ -243,7 +243,7 @@ function toggleModal() {
     if (score === 0){
       modal.innerHTML = `    <div class="modal-content">
                                 <h1 class = "outOfTime">Out of time!</h1>
-                                <img class = "sadKirby" src = "https://i.imgur.com/lZ2HA6Z.gif" width = 25% height = 25%>
+                                <img class = "sadKirby" src = "https://i.imgur.com/6s7RIXU.gif" width = 25% height = 25%>
                                 <br>
                                 <span class="close-button">Try Again</span>
                               </div>`
