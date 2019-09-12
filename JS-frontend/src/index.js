@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", function(){
-    let startingPosition = { x: 17, y: 17}
+    let startingPosition = { x: 1, y: 0}
     let currentPosition = startingPosition
     let prevTile;
     NodeList.prototype.find = Array.prototype.find
@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", function(){
         nameList[maze.id] = maze.name
         if (parseInt(maze.id) === parseInt(mazeId)){
           mazeList.insertAdjacentHTML('beforeend',
-          `<div class= "levelListItemRed" data-id ='${maze.id}'>${maze.name.toUpperCase()}</div>`)
+          `<div class= "levelListItemRed" data-id ='${maze.id}'>-${maze.name.toUpperCase()}</div>`)
         }
         else {
           mazeList.insertAdjacentHTML('beforeend',
-          `<div class= "levelListItem" data-id ='${maze.id}'>${maze.name.toUpperCase()}</div>`)
+          `<div class= "levelListItem" data-id ='${maze.id}'>-${maze.name.toUpperCase()}</div>`)
         }
       })
       console.log(nameList)
@@ -253,7 +253,9 @@ function toggleModal() {
                               </div>`
     } else{
       modal.innerHTML = `    <div class="modal-content">
-                                <img class = "happyKirby" src = "https://i.imgur.com/lZ2HA6Z.gif" width = 25% height = 25%>
+                                <img src = "https://i.imgur.com/1PDG3gO.gif" width = 15% height = 15% align = top>
+                                <img class = "happyKirby" src = "https://i.imgur.com/G9m7y8b.gif" width = 25% height = 25%>
+                                <img src = "https://i.imgur.com/VqdoLgZ.gif" width = 15% height = 15% align = top>
                                 <p class = "finalScore">${score}</p>
                                 <form id = 'name-entry'>
                                   <input type = 'text' name = 'user' placeholder = 'Name' />

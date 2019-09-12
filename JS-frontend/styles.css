@@ -1,7 +1,7 @@
 body {
   grid-template-columns: auto auto;
   font-family: 'Rubik Mono One', sans-serif;
-  color: rgb(165, 86, 86);
+  color: rgb(119, 106, 106);
   background-color: rgb(224,224,224);
   margin-top: 0px;
 }
@@ -60,6 +60,7 @@ grid-template-columns: repeat(19, 4.5vh);
   padding: 20px 90px 30px 20px;
   background-color:rgb(211, 211, 211);
   height: 100%;
+  width: 15%;
 }
 .tile {
 height: 4.5vh;
@@ -105,20 +106,21 @@ background-position: center;
 #W {
   background-image: url('https://i.imgur.com/CiCBJAF.gif');
   background-repeat: no-repeat;
-  background-size: 4vh 4vh;
+  background-size: 5vh 5vh;
   background-position: center;
   background-color:rgb(224,224,224);
 }
 #T { 
 background-image: url('https://i.imgur.com/CiCBJAF.gif');
 background-repeat: no-repeat;
-background-size: 4vh 4vh;
+background-size: 3.5vh 3.5vh;
 background-position: center;
 background-color:rgb(224,224,224);
 }
 
 .list {
   margin-top: 20px;
+  width: 130%;
 }
 
 p.highscoreHeader{
@@ -269,4 +271,18 @@ p.finalScore{
 
 .low-time{
   color: rgb(165, 86, 86);
+}
+
+.instructions{
+  width: 130%
+}
+
+.instructionsHeader{
+  color: rgb(71, 55, 55);
+  margin: 0;
+}
+
+.instructionText{
+  margin-top: 0px;
+  font-size: .75em;
 }
