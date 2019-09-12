@@ -75,6 +75,7 @@ background-position: center;
 }
 .time {
 font-size: 20px;
+color: rgb(119, 106, 106)
 }
 h1 {
 color: rgb(71, 55, 55);
@@ -264,4 +265,8 @@ p.finalScore{
   color: rgb(71, 55, 55);
   font-size: 116px;
   margin: 0;
+}
+
+.low-time{
+  color: rgb(165, 86, 86);
 }
