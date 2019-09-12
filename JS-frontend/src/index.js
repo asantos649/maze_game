@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", function(){
-    let startingPosition = { x: 17, y: 17}
+    let startingPosition = { x: 1, y: 0}
     let currentPosition = startingPosition
     let prevTile;
     NodeList.prototype.find = Array.prototype.find
@@ -73,15 +73,20 @@ document.addEventListener("DOMContentLoaded", function(){
                             return run.maze_id === parseInt(maze)
                           })
         const sorted = mazeRuns.sort(function(a, b){return b.score-a.score})
-        
         for (i=0;i<5;i++){
           if (sorted[i]) {
-            if (sorted[i].user){
+            console.log(sorted[i])
+            if (sorted[i].user !== ""){
               highScores.insertAdjacentHTML('beforeend',
-                // `<div>${i+1}: ${sorted[i].score} ${sorted[i].user}</div>`
                 `<div class="highscoreListItem">${sorted[i].score} - ${sorted[i].user.substring(0,8)}</div>`
               )
             }
+            else {
+              highScores.insertAdjacentHTML('beforeend', `<div class="highscoreListItem">## - AAA</div>`)
+            }
+          }
+          else {
+            highScores.insertAdjacentHTML('beforeend', `<div class="highscoreListItem">## - AAA</div>`)
           }
         }
       })
@@ -175,18 +180,7 @@ document.addEventListener("DOMContentLoaded", function(){
             } 
             if (newTile.id === "W"){
               let name = null        
-              // name = prompt(`Your score is ${score}.  Please Enter your name`, "AAA")
-              // saveRunInfo({maze_id: mazeId, score: score, user: name})
-
               toggleModal()
-              // setTimeout(function (){
-              //   var closeButton = document.querySelector(".close-button");
-              //   closeButton.addEventListener("click", (e) =>{
-              //     toggleModal()
-              //     reRender();
-              //   });
-              // },0000)
-
               clearInterval(timerEvent);
             }
             if (newTile.id === "T"){
@@ -194,7 +188,6 @@ document.addEventListener("DOMContentLoaded", function(){
             }
 
         newTile.id = "kirby"
-        /// LOL
         prevTile = newTile
 
         return true
@@ -249,19 +242,22 @@ function toggleModal() {
     modal.classList.toggle("show-modal");
     if (score === 0){
       modal.innerHTML = `    <div class="modal-content">
-                                <span class="close-button">&times;</span>
-                                <h1>Out of time</h1>
+                                <h1 class = "outOfTime">Out of time!</h1>
+                                <img class = "sadKirby" src = "https://i.imgur.com/lZ2HA6Z.gif" width = 25% height = 25%>
+                                <br>
+                                <span class="close-button">Try Again</span>
                               </div>`
     } else{
       modal.innerHTML = `    <div class="modal-content">
-                                <h1>Final score: ${score}</h1>
+                                <img class = "happyKirby" src = "https://i.imgur.com/lZ2HA6Z.gif" width = 25% height = 25%>
+                                <p class = "finalScore">${score}</p>
                                 <form id = 'name-entry'>
-                                  <p>Name <input type = 'text' name = 'user' /><p>
-                                  <input type = 'submit' name = 'submit'>
+                                  <input type = 'text' name = 'user' placeholder = 'Name' />
+                                  <br>
+                                  <input class = "close-button" type = 'submit' name = 'submit'>
                                 </form>
                               </div>`
       let nameEntry = modal.querySelector('#name-entry')
-      console.log(nameEntry)
       nameEntry.addEventListener('submit', e =>{
         e.preventDefault()
         let name = e.target.user.value

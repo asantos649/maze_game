@@ -93,13 +93,13 @@ background-position: center;
   background-image: url(https://i.imgur.com/rN6ZgGS.png);
 }
 .purple #O{
-  background-image: url(https://i.imgur.com/ru2U5HW.png);
+  background-image: url(https://i.imgur.com/QsTGxut.png);
 }
 .green #O{
   background-image: url(https://i.imgur.com/sp4DwQi.png);
 }
 #I{
-background-color:rgb(224,224,224);
+  background-color:rgb(224,224,224);
 }
 #W {
   background-image: url('https://i.imgur.com/CiCBJAF.gif');
@@ -113,17 +113,11 @@ background-image: url('https://i.imgur.com/CiCBJAF.gif');
 background-repeat: no-repeat;
 background-size: 4vh 4vh;
 background-position: center;
-/* background-color:rgb(199, 92, 92); */
 background-color:rgb(224,224,224);
 }
 
 .list {
   margin-top: 20px;
-}
-
-.highscore{
-  /* margin-top: 68px; */
-  /* margin-left: 0px; */
 }
 
 p.highscoreHeader{
@@ -144,14 +138,12 @@ p.mazesHeader{
   cursor: pointer;
 }
 .levelListItemRed{
-  /* font-family: 'Lato', sans-serif; */
-  color: rgb(165, 86, 86);
+  color: rgb(71, 55, 55);
   font-size: 14px;
   margin: 0;
   cursor: pointer;
 }
 .highscoreListItem{
-  /* font-family: 'Lato', sans-serif; */
   color: rgb(119, 106, 106);
   font-size: 14px;
   margin: 0;
@@ -177,24 +169,99 @@ p.mazesHeader{
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 1rem 1.5rem;
-  width: 24rem;
-  border-radius: 0.5rem;
+  width: 28rem;
+  border-radius: 0.3rem;
+  text-align: center;
+  padding-bottom: 50px;
+  padding-top: 35px;
+  background-color: rgb(224,224,224);
 }
 .close-button {
-  float: right;
-  width: 1.5rem;
-  line-height: 1.5rem;
+  float: center;
+  padding: 10px 15px;
+  /* line-height: 1.5rem; */
   text-align: center;
   cursor: pointer;
   border-radius: 0.25rem;
-  background-color: lightgray;
+  color: rgb(224,224,224);
+  background-color: rgb(165, 86, 86);
+  transition-duration: 0.1s;
 }
 .close-button:hover {
   background-color: darkgray;
-}
+} 
 .show-modal {
   opacity: 1;
   visibility: visible;
   transform: scale(1.0);
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+.sadKirby{
+  margin-bottom: 25px;
+}
+.outOfTime{
+  margin-bottom: 5px;
+}
+input.close-button {
+  float: center;
+  padding: 10px 15px;
+  /* line-height: 1.5rem; */
+  font-family: 'Rubik Mono One', sans-serif;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  color: rgb(224,224,224);
+  background-color: rgb(165, 86, 86);
+  font-size: 16px;
+}
+input[type=text] {
+  width: 50%;
+  background-color: rgb(243, 243, 243);
+  color: rgb(71, 55, 55);
+  padding: 5px 8px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Rubik Mono One', sans-serif;
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 35px;
+  transition-duration: 0.2s;
+}
+input[type=text]:hover {
+  width: 50%;
+  background-color: rgb(243, 243, 243);
+  color: rgb(71, 55, 55);
+  padding: 5px 8px;
+  /* margin: 8px 0; */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Rubik Mono One', sans-serif;
+  font-size: 50px;
+  text-align: center;
+  /* margin-bottom: 35px; */
+}
+input[type=text]:focus {
+  width: 50%;
+  background-color: rgb(243, 243, 243);
+  color: rgb(71, 55, 55);
+  padding: 5px 8px;
+  /* margin: 8px 0; */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Rubik Mono One', sans-serif;
+  font-size: 50px;
+  text-align: center;
+  /* margin-bottom: 35px; */
+}
+p.finalScoreHeader{
+margin:0;
+}
+p.finalScore{
+  color: rgb(71, 55, 55);
+  font-size: 116px;
+  margin: 0;
 }
