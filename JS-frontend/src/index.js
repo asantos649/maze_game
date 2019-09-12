@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", function(){
     const nameList = {}
     let wasOnTreasure = false
 
+    const coinSound = document.querySelector('.coinSound')
+    const victorySound = document.querySelector('.victorySound')
+
   // renders list of all maze levels
   function renderMazeList(){
     mazeList.innerHTML = `<p class = "mazesHeader">Mazes:</p>`
@@ -191,12 +194,14 @@ document.addEventListener("DOMContentLoaded", function(){
               }
             } 
             if (newTile.id === "W"){
+              victorySound.play()
               // let name = null        
               toggleModal()
               clearInterval(timerEvent);
             }
             if (newTile.id === "T"){
               score += 20;
+              coinSound.play()
               console.log(score)
               wasOnTreasure = true
             } 
