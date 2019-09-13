@@ -90,7 +90,7 @@ grid4 = [   ['O', 'I', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O
             ['O', 'I', 'I', 'I', 'I', 'I', 'I', 'T', 'O', 'I', 'I', 'I', 'O', 'T', 'I', 'I', 'I', 'I', 'W'],
             ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O']].to_json
 
-Maze.create({name: 'Pop Star', grid: grid1})
-Maze.create({name: 'Crystal Cave', grid: grid2})
-Maze.create({name: 'Dark Labyrinth', grid: grid3}) 
-Maze.create({name: 'Fountain of Dreams', grid: grid4})
+Maze.create({name: '1 Pop Star', grid: grid1})
+Maze.create({name: '2 Crystal Cave', grid: grid2})
+Maze.create({name: '3 Dark Labyrinth', grid: grid3}) 
+Maze.create({name: '4 Fountain of Dreams', grid: grid4})

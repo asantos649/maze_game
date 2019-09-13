@@ -128,7 +128,7 @@ background-color:rgb(224,224,224);
 
 .list {
   margin-top: 20px;
-  width: 130%;
+  width: 140%;
 }
 
 p.highscoreHeader{
@@ -293,4 +293,12 @@ p.finalScore{
 .instructionText{
   margin-top: 0px;
   font-size: .75em;
+}
+
+.win{
+  color: rgb(165, 86, 86);
+  font-size: 3em;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  width: 100%
 }

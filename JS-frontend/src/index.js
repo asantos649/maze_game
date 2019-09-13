@@ -1,14 +1,15 @@
 
 
 document.addEventListener("DOMContentLoaded", function(){
-    let startingPosition = { x: 1, y: 0}
+    let startingPosition = { x: 17, y: 17}
+    let startingScore = 10
     let currentPosition = startingPosition
     let prevTile;
     NodeList.prototype.find = Array.prototype.find
     const time = document.querySelector('.time')
     const highScores = document.querySelector('.highscore')
     const mazeList = document.querySelector('.list')
-    let score = 20;
+    let score = startingScore;
     const container = document.querySelector('.center')
     // const goButton = document.querySelector('.go')
     let timerEvent = null
@@ -18,12 +19,17 @@ document.addEventListener("DOMContentLoaded", function(){
     const nameList = {}
     let wasOnTreasure = false
 
+    //sounds
     const coinSound = document.querySelector('.coinSound')
-    coinSound.volume = "0.1"
+    coinSound.volume = ".5"
     const victorySound = document.querySelector('.victorySound')
     victorySound.volume = '1'
     const backgroundMusic = document.querySelector('.backgroundMusic')
-    victorySound.volume = '.05'
+    backgroundMusic.volume = '.5'
+    const whistle = document.querySelector('.whistle')
+    whistle.volume = '.8'
+    const loseSound = document.querySelector('.loseSound')
+    loseSound.volume = '1'
     
 
   // renders list of all maze levels
@@ -38,17 +44,17 @@ document.addEventListener("DOMContentLoaded", function(){
         nameList[maze.id] = maze.name
         if (parseInt(maze.id) === parseInt(mazeId)){
           mazeList.insertAdjacentHTML('beforeend',
-          `<div class= "levelListItemRed" data-id ='${maze.id}'>-${maze.name.toUpperCase()}</div>`)
+          `<div class= "levelListItemRed" data-id ='${maze.id}'>${maze.name.toUpperCase()}</div>`)
         }
         else {
           mazeList.insertAdjacentHTML('beforeend',
-          `<div class= "levelListItem" data-id ='${maze.id}'>-${maze.name.toUpperCase()}</div>`)
+          `<div class= "levelListItem" data-id ='${maze.id}'>${maze.name.toUpperCase()}</div>`)
         }
       })
       console.log(nameList)
       createGrid();
       renderScores(mazeId);
-    }).then(() => time.innerText = `${mazeTitle}  | Time: ${score}`)
+    }).then(() => time.innerText = `${mazeTitle.substring(2)}  | Time: ${score}`)
   }
 
   renderMazeList()
@@ -56,13 +62,14 @@ document.addEventListener("DOMContentLoaded", function(){
      function subtractFromCounter(){
        score --;
        if (score >5){
-          time.innerText = `${mazeTitle}  | Time: ${score}`;
+          time.innerText = `${mazeTitle.substring(2)}  | Time: ${score}`;
        } else {
-          time.innerHTML = `${mazeTitle}  | <span class = 'low-time'> Time: ${score}</span>`;
+          time.innerHTML = `${mazeTitle.substring(2)}  | <span class = 'low-time'> Time: ${score}</span>`;
+
        }
        if (score === 0){
          clearInterval(timerEvent)
-        //  alert("TIMES OUT!")
+        loseSound.play()
         toggleModal();
         setTimeout(function (){
           var closeButton = document.querySelector(".close-button");
@@ -106,8 +113,8 @@ document.addEventListener("DOMContentLoaded", function(){
       })
     }
     function reRender(){
-      score = 20;
-      time.innerText = `${mazeTitle}  | Time: ${score}`
+      score = startingScore;
+      time.innerText = `${mazeTitle.substring(2)}  | Time: ${score}`
       currentPosition = startingPosition
       clearInterval(timerEvent);
       timerEvent = null
@@ -155,16 +162,16 @@ document.addEventListener("DOMContentLoaded", function(){
           mapInfo = JSON.parse(maze.grid)
           let color = "pink";
           /////
-          if (maze.name === "Pop Star"){
+          if (maze.name === "1 Pop Star"){
             color = "pink"
           }
-          if (maze.name === "Crystal Cave"){
+          if (maze.name === "2 Crystal Cave"){
             color = "blue"
           }
-          if (maze.name === "Dark Labyrinth"){
+          if (maze.name === "3 Dark Labyrinth"){
             color = "purple"
           }
-          if (maze.name === "Fountain of Dreams"){
+          if (maze.name === "4 Fountain of Dreams"){
             color = "green"
           }
           /////
@@ -271,17 +278,35 @@ function toggleModal() {
                                 <span class="close-button">Try Again</span>
                               </div>`
     } else{
-      modal.innerHTML = `    <div class="modal-content">
-                                <img src = "https://i.imgur.com/1PDG3gO.gif" width = 15% height = 15% align = top>
-                                <img class = "happyKirby" src = "https://i.imgur.com/G9m7y8b.gif" width = 25% height = 25%>
-                                <img src = "https://i.imgur.com/VqdoLgZ.gif" width = 15% height = 15% align = top>
-                                <p class = "finalScore">${score}</p>
-                                <form id = 'name-entry'>
-                                  <input type = 'text' name = 'user' placeholder = 'Name' />
-                                  <br>
-                                  <input class = "close-button" type = 'submit' name = 'submit'>
-                                </form>
-                              </div>`
+        if (!(nameList[(parseInt(mazeId)+1)])){
+          backgroundMusic.pause()
+          setTimeout(() => victorySound.play(), 1000);
+          modal.innerHTML = `    <div class="modal-content">
+                                  <p class = "win" >YOU WIN!</p>
+                                  <img src = "https://i.imgur.com/1PDG3gO.gif" width = 15% height = 15% align = top>
+                                  <img class = "happyKirby" src = "https://i.imgur.com/G9m7y8b.gif" width = 25% height = 25%>
+                                  <img src = "https://i.imgur.com/VqdoLgZ.gif" width = 15% height = 15% align = top>
+                                  <p class = "finalScore">${score}</p>
+                                  <form id = 'name-entry'>
+                                    <input type = 'text' name = 'user' placeholder = 'Name' />
+                                    <br>
+                                    <input class = "close-button" type = 'submit' name = 'submit'>
+                                  </form>
+                                </div>`
+          
+        } else {
+             modal.innerHTML = `    <div class="modal-content">
+                                      <img src = "https://i.imgur.com/1PDG3gO.gif" width = 15% height = 15% align = top>
+                                      <img class = "happyKirby" src = "https://i.imgur.com/G9m7y8b.gif" width = 25% height = 25%>
+                                      <img src = "https://i.imgur.com/VqdoLgZ.gif" width = 15% height = 15% align = top>
+                                      <p class = "finalScore">${score}</p>
+                                      <form id = 'name-entry'>
+                                        <input type = 'text' name = 'user' placeholder = 'Name' />
+                                        <br>
+                                        <input class = "close-button" type = 'submit' name = 'submit'>
+                                      </form>
+                                    </div>`
+        }
       let nameEntry = modal.querySelector('#name-entry')
       nameEntry.addEventListener('submit', e =>{
         e.preventDefault()
@@ -292,7 +317,7 @@ function toggleModal() {
         if (nameList[(parseInt(mazeId)+1)]){
           mazeId ++
         } else{
-          mazeId = parseInt(mazeId) - 3
+          location.reload()
         }
         mazeTitle = nameList[mazeId]
         setTimeout(reRender,0000);
