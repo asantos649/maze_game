@@ -280,6 +280,7 @@ function toggleModal() {
     } else{
         if (!(nameList[(parseInt(mazeId)+1)])){
           backgroundMusic.pause()
+          backgroundMusic.volume = '0'
           setTimeout(() => victorySound.play(), 1000);
           modal.innerHTML = `    <div class="modal-content">
                                   <p class = "win" >YOU WIN!</p>
@@ -321,6 +322,7 @@ function toggleModal() {
         }
         mazeTitle = nameList[mazeId]
         setTimeout(reRender,0000);
+        backgroundMusic.volume = '.5'
       })
     }
 }
