@@ -19,7 +19,12 @@ document.addEventListener("DOMContentLoaded", function(){
     let wasOnTreasure = false
 
     const coinSound = document.querySelector('.coinSound')
+    coinSound.volume = "0.1"
     const victorySound = document.querySelector('.victorySound')
+    victorySound.volume = '1'
+    const backgroundMusic = document.querySelector('.backgroundMusic')
+    victorySound.volume = '.05'
+    
 
   // renders list of all maze levels
   function renderMazeList(){
@@ -124,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function(){
           // e.preventDefault();
           if (!timerEvent)
             timerEvent = setInterval(subtractFromCounter, 0500)
+            backgroundMusic.play()
           if (e.code === 'ArrowLeft'){
             move("left")
           }
@@ -194,8 +200,7 @@ document.addEventListener("DOMContentLoaded", function(){
               }
             } 
             if (newTile.id === "W"){
-              victorySound.play()
-              // let name = null        
+              coinSound.play()      
               toggleModal()
               clearInterval(timerEvent);
             }
