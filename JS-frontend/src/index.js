@@ -1,8 +1,8 @@
 
 
 document.addEventListener("DOMContentLoaded", function(){
-    let startingPosition = { x: 17, y: 17}
-    let startingScore = 10
+    let startingPosition = { x: 1, y: 0}
+    let startingScore = 20
     let currentPosition = startingPosition
     let prevTile;
     NodeList.prototype.find = Array.prototype.find
@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function(){
     let mazeTitle = null
     const nameList = {}
     let wasOnTreasure = false
+
+    const url = 'https://floating-eyrie-74274.herokuapp.com'
 
     //sounds
     const coinSound = document.querySelector('.coinSound')
@@ -35,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function(){
   // renders list of all maze levels
   function renderMazeList(){
     mazeList.innerHTML = `<p class = "mazesHeader">Mazes:</p>`
-    fetch('http://localhost:3000/mazes')
+    fetch(`${url}/mazes`)
     .then(resp => resp.json())
     .then(mazes => {
       mazeId = mazeId || mazes[0].id
@@ -88,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function(){
      //renders top 5 scores in highscores
      function renderScores(maze){
       highScores.innerHTML = `<p class = "highscoreHeader">High Scores:</p>`
-      fetch('http://localhost:3000/runs')
+      fetch(`${url}/runs`)
       .then(resp => resp.json())
       .then(runs => {
         const mazeRuns = runs.filter(run =>{          
@@ -156,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function(){
     function createGrid(){
       const board = document.querySelector("#board")
       board.innerHTML = ''
-      fetch(`http://localhost:3000/mazes/${mazeId}`)
+      fetch(`${url}/mazes/${mazeId}`)
       .then(resp => resp.json())
       .then(maze => {
           mapInfo = JSON.parse(maze.grid)
@@ -251,7 +253,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     function saveRunInfo(formData){
-      fetch('http://localhost:3000/runs', {
+      fetch(`${url}/runs`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
